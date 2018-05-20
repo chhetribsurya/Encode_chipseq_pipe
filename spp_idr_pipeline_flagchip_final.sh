@@ -1,11 +1,11 @@
 #!/bin/bash 
 
 ### Since IDR program needs python3, so new environment created using conda -create, since anaconda2.7 is already created:
-#conda create -n python3 python=3.7 anaconda
+# conda create -n python3 python=3.7 anaconda
 
 # First activate anaconda version of python
-#source /gpfs/gpfs1/home/schhetri/python/anaconda_python_version.sh 
-#source activate python3
+# source /gpfs/gpfs1/home/schhetri/python/anaconda_python_version.sh 
+# source activate python3
 # source deactivate ## after the script run is finished
 
 export RUN_PATH=`pwd`
@@ -107,19 +107,17 @@ for i in "${!LIB_REP1[@]}"; do
 done
 
 bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "step1_tag_align" -o $LOG_DIR/${JOB_PREFIX}_tag_align.out $RUN_PATH/submit_fastq2tagalign.sh
-#bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "step1_tag_align" -o $LOG_DIR/resubmit_${JOB_PREFIX}_tag_align.out $RUN_PATH/submit_fastq2tagalign_jobResubmit.sh
+# bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "step1_tag_align" -o $LOG_DIR/resubmit_${JOB_PREFIX}_tag_align.out $RUN_PATH/submit_fastq2tagalign_jobResubmit.sh
 
-#bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "step2_pool_peak_call" -o $LOG_DIR/${JOB_PREFIX}_pooling_and_peak_calling.out $RUN_PATH/submit_peak_calls.sh
+bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "step2_pool_peak_call" -o $LOG_DIR/${JOB_PREFIX}_pooling_and_peak_calling.out $RUN_PATH/submit_peak_calls.sh
 
-#bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call IDR calling" -o $LOG_DIR/${JOB_PREFIX}_idr_calling.out $RUN_PATH/submit_run_idr.sh
+bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call IDR calling" -o $LOG_DIR/${JOB_PREFIX}_idr_calling.out $RUN_PATH/submit_run_idr.sh
+# bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call IDR calling" -o $LOG_DIR/${JOB_PREFIX}_idr_rescue_self_consist_ratio.out $RUN_PATH/submit_idr.calc_rescue_and_selfconsist_ratio.sh
 
-#bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call IDR calling" -o $LOG_DIR/${JOB_PREFIX}_idr_rescue_self_consist_ratio.out $RUN_PATH/submit_idr.calc_rescue_and_selfconsist_ratio.sh
+bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call motif analysis" -o $LOG_DIR/${JOB_PREFIX}_motif_calling.out $RUN_PATH/submit_meme_peaks_motif_analysis.sh
+# bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call motif analysis with all peaks" -o $LOG_DIR/${JOB_PREFIX}_motif_calling_all_peak.out $RUN_PATH/submit_meme_peaks_motif_custom_analysis.sh
 
-#bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call motif analysis" -o $LOG_DIR/${JOB_PREFIX}_motif_calling.out $RUN_PATH/submit_meme_peaks_motif_analysis.sh
-
-#bsub -We 24:00 -n 1 -R span[hosts=1] -J "Call motif analysis with all peaks" -o $LOG_DIR/${JOB_PREFIX}_motif_calling_all_peak.out $RUN_PATH/submit_meme_peaks_motif_custom_analysis.sh
-
-#bsub -We 24:00 -q priority -n 1 -R span[hosts=1] -J "Call motif analysis with meme_chip" -o ./${JOB_PREFIX}_motif_calling_all_peak.out $RUN_PATH/submit_meme_chip_peaks_motif_analysis_final.sh
-#bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "Call motif analysis with meme_chip" -o ./${JOB_PREFIX}_motif_calling_all_peak.out $RUN_PATH/submit_meme_chip_peaks_motif_analysis_final.sh
+bsub -We 24:00 -q priority -n 1 -R span[hosts=1] -J "Call motif analysis with meme_chip" -o ./${JOB_PREFIX}_motif_calling_all_peak.out $RUN_PATH/submit_meme_chip_peaks_motif_analysis_final.sh
+# bsub -We 24:00 -q c7normal -n 1 -R span[hosts=1] -J "Call motif analysis with meme_chip" -o ./${JOB_PREFIX}_motif_calling_all_peak.out $RUN_PATH/submit_meme_chip_peaks_motif_analysis_final.sh
 
 
